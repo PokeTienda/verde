@@ -48,17 +48,25 @@
     <div id="game" style="display:none;"></div>
 
     <script>
+        // Registro del Service Worker para habilitar el juego offline
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((reg) => console.log('Service Worker registrado con éxito:', reg.scope))
+                    .catch((err) => console.error('Error al registrar el Service Worker:', err));
+            });
+        }
+
         function startGame() {
             document.getElementById('start-btn').style.display = 'none';
             document.getElementById('game').style.display = 'block';
 
             window.EJS_player = "#game";
-            window.EJS_gameUrl = "verde.gb";
+            window.EJS_gameUrl = "verde.gbc";
             window.EJS_core = "gambatte";
             window.EJS_gameName = "Pokemon Verde";
             window.EJS_pathtodata = "data/";
             window.EJS_startOnLoaded = true;
-           
 
             var script = document.createElement('script');
             script.src = "data/loader.js";
